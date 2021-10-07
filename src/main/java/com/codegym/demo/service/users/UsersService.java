@@ -29,13 +29,4 @@ public class UsersService implements IUsersService{
         return appUserRepository.save(users);
     }
 
-
-    //thay doi o day
-    //thay doi o day
-    //thay doi o day
-    //thay doi o day
-    //thay doi o day
-    //thay doi o day
-    //thay doi o day
-    //thay doi o day
 }
