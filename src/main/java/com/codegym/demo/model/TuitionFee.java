@@ -16,5 +16,4 @@ public class TuitionFee {
     private String status;
     @OneToOne
     private Users users;
-//hello
 }
