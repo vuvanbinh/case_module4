@@ -7,22 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
+
+        // Ánh trăng nói hộ lòng tôi
+        // Ánh trăng nói hộ lòng tôi
+        // Ánh trăng nói hộ lòng tôi
+        // Ánh trăng nói hộ lòng tôi
+        // Ánh trăng nói hộ lòng tôi
+        // Ánh trăng nói hộ lòng tôi
+        // Ánh trăng nói hộ lòng tôi
     }
-
-
-
-    //Nam Luty thay doi
-    //Nam Luty thay doi
-    //Nam Luty thay doi
-    //Nam Luty thay doi
-    //Nam Luty thay doi
-    //Nam Luty thay doi
-    //Nam Luty thay doi
-    //Nam Luty thay doi
-    //Nam Luty thay doi
-
-
-    //Huy Nam Thay doi
-    //Huy Nam Thay doi
-    //Huy Nam Thay doia
 }
