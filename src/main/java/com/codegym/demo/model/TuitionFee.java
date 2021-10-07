@@ -14,6 +14,7 @@ public class TuitionFee {
     private String dotDog;
     private double money;
     private String status;
-
+    @OneToOne
+    private Users users;
 
 }

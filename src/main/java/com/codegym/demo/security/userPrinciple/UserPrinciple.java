@@ -28,14 +28,14 @@ public class UserPrinciple implements UserDetails {
     private String status;
     private String avatar;
     private Collection<? extends GrantedAuthority> roles;
-//    private Classes aClass;
-//    private TuitionFee tuitionFee;
-//    private Diary diary;
+    private Classes aClass;
+    private TuitionFee tuitionFee;
+    private Diary diary;
 
-    public UserPrinciple(Long id, String fullName
-            , String email, String password, int phoneNumber
-            , Date dob, String status, String avatar, Collection<? extends GrantedAuthority> roles
-            ) {
+    public UserPrinciple(Long id, String fullName, String email, String password
+            , int phoneNumber, Date dob, String status, String avatar
+            , Collection<? extends GrantedAuthority> roles, Classes aClass
+            , TuitionFee tuitionFee, Diary diary) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -45,16 +45,16 @@ public class UserPrinciple implements UserDetails {
         this.status = status;
         this.avatar = avatar;
         this.roles = roles;
-//        this.aClass = aClass;
-//        this.tuitionFee = tuitionFee;
-//        this.diary = diary;
+        this.aClass = aClass;
+        this.tuitionFee = tuitionFee;
+        this.diary = diary;
     }
 
     //Hàm build mục đích là build user ở trong request,lưu vào một vùng nhớ static
     public static UserPrinciple build(Users users){
         //Convert từ set<> sang list<>(set<AppRole> sang List<GrantedAuthority> )
-        List<GrantedAuthority> authorities = users.getRoles().stream().map(appRole ->
-                new SimpleGrantedAuthority(appRole.getName().name())).collect(Collectors.toList());
+        List<GrantedAuthority> authorities = users.getRoles().stream().map(role ->
+                new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
         return new UserPrinciple(
                users.getId(),
                 users.getFullName(),
@@ -64,10 +64,10 @@ public class UserPrinciple implements UserDetails {
                 users.getDob(),
                 users.getStatus(),
                 users.getAvatar(),
-                authorities
-//                users.getAClass(),
-//                users.getTuitionFee(),
-//                users.getDiary()
+                authorities,
+                users.getAClass(),
+                users.getTuitionFee(),
+                users.getDiary()
         );
     }
 

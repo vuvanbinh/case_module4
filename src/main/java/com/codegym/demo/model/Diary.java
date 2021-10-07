@@ -14,6 +14,10 @@ public class Diary {
     private Long id;
     private String content;
     private Date date;
-    private String coachName;
+    @ManyToOne
+    private Users coachName;
+    @ManyToOne
+    private Classes classes;
+
 
 }

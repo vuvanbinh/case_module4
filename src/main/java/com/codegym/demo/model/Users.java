@@ -1,6 +1,8 @@
 package com.codegym.demo.model;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,13 +26,19 @@ public class Users {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-//    @ManyToOne
-//    @JoinColumn(name = "classes_id")
-//    private Classes aClass;
-//    @ManyToOne
-//    @JoinColumn(name = "tuitionFee_id")
-//    private TuitionFee tuitionFee;
-//    @ManyToOne
-//    @JoinColumn(name = "diary_id")
-//    private Diary diary;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "classes_id")
+    private Classes aClass;
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "tuitionFee_id")
+    private TuitionFee tuitionFee;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "diary_id")
+    private Diary diary;
+
 }

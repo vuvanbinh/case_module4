@@ -16,7 +16,7 @@ public class JwtProvider {
     private int jwtExpiration = 86400;
 
     public String createToken(Authentication authentication){
-        UserPrinciple userPrinciple = (UserPrinciple) authentication.getAuthorities();
+        UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
         return Jwts.builder().setSubject(userPrinciple.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime()+jwtExpiration*1000))
