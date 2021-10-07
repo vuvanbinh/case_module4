@@ -17,4 +17,6 @@ public class Classes {
     List<Users> studentList;
     @OneToMany
     List<Users> trainerList;
+
+
 }

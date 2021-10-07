@@ -1,8 +1,5 @@
 package com.codegym.demo.security.userPrinciple;
 
-import com.codegym.demo.model.Classes;
-import com.codegym.demo.model.Diary;
-import com.codegym.demo.model.TuitionFee;
 import com.codegym.demo.model.Users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -11,7 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,31 +19,18 @@ public class UserPrinciple implements UserDetails {
     private String email;
     @JsonIgnore
     private String password;
-    private int phoneNumber;
-    private Date dob;
-    private String status;
     private String avatar;
     private Collection<? extends GrantedAuthority> roles;
-    private Classes aClass;
-    private TuitionFee tuitionFee;
-    private Diary diary;
 
-    public UserPrinciple(Long id, String fullName, String email, String password
-            , int phoneNumber, Date dob, String status, String avatar
-            , Collection<? extends GrantedAuthority> roles, Classes aClass
-            , TuitionFee tuitionFee, Diary diary) {
+    public UserPrinciple(Long id, String fullName, String email, String password, String avatar
+            , Collection<? extends GrantedAuthority> roles
+            ) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.dob = dob;
-        this.status = status;
         this.avatar = avatar;
         this.roles = roles;
-        this.aClass = aClass;
-        this.tuitionFee = tuitionFee;
-        this.diary = diary;
     }
 
     //Hàm build mục đích là build user ở trong request,lưu vào một vùng nhớ static
@@ -60,14 +43,8 @@ public class UserPrinciple implements UserDetails {
                 users.getFullName(),
                 users.getEmail(),
                 users.getPassword(),
-                users.getPhoneNumber(),
-                users.getDob(),
-                users.getStatus(),
                 users.getAvatar(),
-                authorities,
-                users.getAClass(),
-                users.getTuitionFee(),
-                users.getDiary()
+                authorities
         );
     }
 
