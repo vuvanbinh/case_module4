@@ -68,6 +68,7 @@ public class JwtResponse {
     }
 
     public void setRoles(Collection<? extends GrantedAuthority> roles) {
+
         this.roles = roles;
     }
 }
