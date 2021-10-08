@@ -44,7 +44,7 @@ public class AuthController {
     JwtProvider jwtProvider;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> login(@Valid @RequestBody SignInForm signInForm){
+    public ResponseEntity<?> login(@Valid @RequestBody SignInForm signInForm) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInForm.getEmail(), signInForm.getPassword())
         );
@@ -52,13 +52,13 @@ public class AuthController {
         String token = jwtProvider.createToken(authentication);
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
         return ResponseEntity.ok(new JwtResponse(token, userPrinciple.getFullName()
-                , userPrinciple.getAvatar(),userPrinciple.getAuthorities()));
+                , userPrinciple.getAvatar(), userPrinciple.getAuthorities()));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm){
-        if (usersService.existsByEmail(signUpForm.getEmail())){
-            return new ResponseEntity<>(new ResponseMessage("Email is existed!"),HttpStatus.OK);
+    public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm) {
+        if (usersService.existsByEmail(signUpForm.getEmail())) {
+            return new ResponseEntity<>(new ResponseMessage("Email is existed!"), HttpStatus.OK);
         }
         Users users = new Users();
         users.setFullName(signUpForm.getFullName());
@@ -67,33 +67,30 @@ public class AuthController {
         users.setAvatar(signUpForm.getAvatar());
         Set<String> strRole = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
-        strRole.forEach(role->{
-            switch (role){
+        strRole.forEach(role -> {
+            switch (role) {
                 case "admin":
-                    Role adminRole = roleService.findByName(RoleName.ADMIN).orElseThrow(()-> new RuntimeException("Role not found"));
+                    Role adminRole = roleService.findByName(RoleName.ADMIN).orElseThrow(() -> new RuntimeException("Role not found"));
                     roles.add(adminRole);
                     break;
                 case "student":
-                    Role studentRole = roleService.findByName(RoleName.STUDENT).orElseThrow(()-> new RuntimeException("Role not found"));
+                    Role studentRole = roleService.findByName(RoleName.STUDENT).orElseThrow(() -> new RuntimeException("Role not found"));
                     roles.add(studentRole);
                     break;
                 case "ministry":
-                    Role ministryRole = roleService.findByName(RoleName.MINISTRY).orElseThrow(()-> new RuntimeException("Role not found"));
+                    Role ministryRole = roleService.findByName(RoleName.MINISTRY).orElseThrow(() -> new RuntimeException("Role not found"));
                     roles.add(ministryRole);
                     break;
 
                 default:
-                    Role coachRole = roleService.findByName(RoleName.COACH).orElseThrow(()-> new RuntimeException("Role not found"));
+                    Role coachRole = roleService.findByName(RoleName.COACH).orElseThrow(() -> new RuntimeException("Role not found"));
                     roles.add(coachRole);
                     break;
             }
         });
         users.setRoles(roles);
         usersService.save(users);
-        return new ResponseEntity<>(new ResponseMessage("Create success!"),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Create success!"), HttpStatus.OK);
     }
-
-
-
-
 }
+
