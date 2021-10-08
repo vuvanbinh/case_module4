@@ -1,4 +1,4 @@
-package com.codegym.demo.security;
+package com.codegym.demo.config;
 import com.codegym.demo.security.jwt.JwtAuthEntryPoint;
 import com.codegym.demo.security.jwt.JwtAuthTokenFilter;
 import com.codegym.demo.security.userPrinciple.UserDetailServiceImpl;
@@ -53,5 +53,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtAuthTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
 }

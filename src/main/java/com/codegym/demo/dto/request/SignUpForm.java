@@ -9,7 +9,6 @@ import java.util.Set;
 
 @Data
 public class SignUpForm {
-
     private String fullName;
     private String email;
     private String password;
@@ -21,6 +20,4 @@ public class SignUpForm {
     Set<String> roles;
     private Classes classes;
     private TuitionFee tuitionFee;
-
-
 }

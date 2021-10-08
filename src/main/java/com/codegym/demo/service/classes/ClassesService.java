@@ -1,11 +1,10 @@
 package com.codegym.demo.service.classes;
 
 import com.codegym.demo.model.Classes;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public class ClassesService implements IClassesService{
+public class ClassesService implements IClassesService {
     @Override
     public Iterable<Classes> findAll() {
         return null;
@@ -24,11 +23,5 @@ public class ClassesService implements IClassesService{
     @Override
     public void remove(Long id) {
 
-    }
-
-    @Override
-
-    public Iterable<Classes> findClassByEmail(String email) {
-        return null;
     }
 }
