@@ -8,5 +8,13 @@ import java.util.Optional;
 public interface IUsersService extends IService<Users> {
     Boolean existsByEmail(String email);
     Optional<Users> findByEmail(String email);
-    Boolean checkLogin(String email,String password);
+
+    Iterable<Users> findAllStudentByClassId(Long id);
+
+    Iterable<Users> findAllMinistryByClassId(Long id);
+
+
+//    Boolean checkLogin(String email,String password);
+
+
 }
