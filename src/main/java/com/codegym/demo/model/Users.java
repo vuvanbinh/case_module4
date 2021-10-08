@@ -1,5 +1,7 @@
 package com.codegym.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -31,7 +33,8 @@ public class Users {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "classes_id")
-    private Classes aClass;
+    @JsonBackReference
+    private Classes classes;
 
 //    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 //    @JoinColumn(name = "tuitionFee_id")

@@ -4,11 +4,13 @@ import com.codegym.demo.dto.request.SignInForm;
 import com.codegym.demo.dto.request.SignUpForm;
 import com.codegym.demo.dto.response.JwtResponse;
 import com.codegym.demo.dto.response.ResponseMessage;
+import com.codegym.demo.model.Classes;
 import com.codegym.demo.model.Role;
 import com.codegym.demo.model.Users;
 import com.codegym.demo.model.RoleName;
 import com.codegym.demo.security.jwt.JwtProvider;
 import com.codegym.demo.security.userPrinciple.UserPrinciple;
+import com.codegym.demo.service.classes.IClassesService;
 import com.codegym.demo.service.role.IRoleService;
 import com.codegym.demo.service.users.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
 @RequestMapping
 @CrossOrigin(origins = "*")
-public class AuthController {
+public class AdminController {
 
     @Autowired
     IUsersService usersService;
@@ -40,6 +43,9 @@ public class AuthController {
     AuthenticationManager authenticationManager;
     @Autowired
     JwtProvider jwtProvider;
+
+    @Autowired
+    IClassesService classesService;
 
     @PostMapping("/signin")
     public ResponseEntity<?> login(@RequestBody SignInForm signInForm){
@@ -63,7 +69,16 @@ public class AuthController {
         Users users = new Users();
         users.setFullName(signUpForm.getFullName());
         users.setEmail(signUpForm.getEmail());
+        users.setPhoneNumber(signUpForm.getPhoneNumber());
+        users.setAddress(signUpForm.getAddress());
+        users.setDob(signUpForm.getDob());
+        users.setStatus(signUpForm.getStatus());
         users.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
+        Classes classes=null;
+        if (signUpForm.getClassesId()==null){
+            users.setClasses(null);
+        }else classes=classesService.findById(signUpForm.getClassesId()).get();
+        users.setClasses(classes);
         users.setAvatar(signUpForm.getAvatar());
         Set<String> strRole = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -94,6 +109,13 @@ public class AuthController {
     }
 
 
-
+//    @GetMapping("/findStudentByClassId/{id}")
+//    public ResponseEntity<Iterable<Users>> findStudentByClassId(@PathVariable Long id){
+//        return new ResponseEntity<>(usersService.findAllStudentByClassId(id),HttpStatus.OK);
+//    }
+    @GetMapping("/findAllClass")
+    public ResponseEntity<Iterable<Classes>> allClass(){
+        return new ResponseEntity<>(classesService.findAll(),HttpStatus.OK);
+    }
 
 }

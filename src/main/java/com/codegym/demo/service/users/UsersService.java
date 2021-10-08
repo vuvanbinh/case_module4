@@ -1,10 +1,14 @@
 package com.codegym.demo.service.users;
 
+import com.codegym.demo.model.Classes;
+import com.codegym.demo.model.Role;
 import com.codegym.demo.model.Users;
+import com.codegym.demo.repository.IClassesRepository;
 import com.codegym.demo.repository.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +17,9 @@ public class UsersService implements IUsersService{
 
     @Autowired
     IUsersRepository usersRepository;
+
+    @Autowired
+    IClassesRepository classesRepository;
 
 
     @Override
@@ -25,17 +32,32 @@ public class UsersService implements IUsersService{
         return usersRepository.findByEmail(email);
     }
 
+//    @Override
+//    public Iterable<Users> findAllStudentByClassId(Long id) {
+//        Classes c = classesRepository.getById(id);
+//        return usersRepository.findAllByClasses(c);
+//    }
+
     @Override
-    public Boolean checkLogin(String email, String password) {
-        List<Users> usersList = (List<Users>) findAll();
-        for (Users u: usersList
-        ) {
-            if (u.getEmail().equals(email) && u.getPassword().equals(password)){
-                return true;
-            }
-        }
-        return false;
+    public Iterable<Users> findAllStudentByClassId(Long id) {
+        return usersRepository.findAllByClassId(id);
     }
+
+
+//    @Override
+    public Iterable<Users> findAllMinistryByClassId(Long id) {
+        return findAllMinistryByClassId(id);
+    }
+
+
+//    @Override
+//    public Iterable<Users> findAllByAClass_Id(Long id) {
+//        Classes classes = classesRepository.getById(id);
+//        return usersRepository.findAllByAClass(classes);
+//    }
+
+
+
 
     @Override
     public Iterable<Users> findAll() {
@@ -56,5 +78,32 @@ public class UsersService implements IUsersService{
     public void remove(Long id) {
         usersRepository.deleteById(id);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //    @Override
+//    public Boolean checkLogin(String email, String password) {
+//        List<Users> usersList = (List<Users>) findAll();
+//        for (Users u: usersList
+//        ) {
+//            if (u.getEmail().equals(email) && u.getPassword().equals(password)){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 }

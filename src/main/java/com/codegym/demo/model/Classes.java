@@ -1,5 +1,6 @@
 package com.codegym.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,10 +14,13 @@ public class Classes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @OneToMany
-    List<Users> studentList;
-    @OneToMany
-    List<Users> trainerList;
+    @JsonManagedReference
+    List<Users> users;
+//    @OneToMany
+//    @JsonManagedReference
+//    List<Users> trainerList;
 
 
 }

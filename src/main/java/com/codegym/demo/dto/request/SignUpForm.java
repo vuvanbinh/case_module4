@@ -19,8 +19,6 @@ public class SignUpForm {
     private String status;
     private String avatar;
     Set<String> roles;
-    private Classes classes;
+    private Long classesId;
     private TuitionFee tuitionFee;
-
-
 }
