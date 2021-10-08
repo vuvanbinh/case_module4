@@ -4,13 +4,10 @@ import com.codegym.demo.model.Classes;
 
 import java.util.Optional;
 
-public class ClassesService implements IClassesService {
+import com.codegym.demo.model.Users;
 import com.codegym.demo.repository.IClassesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import java.util.Optional;
 
     @Service
     public class ClassesService implements IClassesService {
@@ -29,13 +26,23 @@ import java.util.Optional;
         }
 
         @Override
-        public void save(Classes classes) {
+        public Iterable<Classes> findAllByUsers(Users users) {
+            return classesRepository.findAllByUsers(users);
+        }
 
+        @Override
+        public void save(Classes classes) {
+            classesRepository.save(classes);
         }
 
         @Override
         public void remove(Long id) {
+            classesRepository.deleteById(id);
+        }
 
+        @Override
+        public Boolean existsByName(String name) {
+            return classesRepository.existsByName(name);
         }
     }
-}
+

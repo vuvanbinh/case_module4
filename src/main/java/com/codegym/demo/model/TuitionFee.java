@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table(name = "tuitionFees")
 @Data
 public class TuitionFee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,4 +17,5 @@ public class TuitionFee {
     private String status;
     @OneToOne
     private Users users;
+
 }

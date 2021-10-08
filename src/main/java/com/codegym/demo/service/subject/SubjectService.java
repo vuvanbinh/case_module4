@@ -13,6 +13,10 @@ public class SubjectService implements ISubjectService {
     @Autowired
     ISubjectRepository subjectRepository;
 
+    @Override
+    public Iterable<Subject> findAll() {
+        return subjectRepository.findAll();
+    }
 
     @Override
     public Optional<Subject> findById(Long id) {
@@ -20,17 +24,17 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
-    public List<Subject> findAll() {
-        return subjectRepository.findAll();
+    public void save(Subject subject) {
+        subjectRepository.save(subject);
     }
 
     @Override
-    public Subject save(Subject subject) {
-        return subjectRepository.save(subject);
-    }
-
-    @Override
-    public void deleteById(Long id) {
+    public void remove(Long id) {
         subjectRepository.deleteById(id);
+    }
+
+    @Override
+    public Boolean existsByName(String name) {
+        return subjectRepository.existsByName(name);
     }
 }

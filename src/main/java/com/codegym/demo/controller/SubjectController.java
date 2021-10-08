@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/sub")
+@RequestMapping("/subject")
 @CrossOrigin(origins = "*")
 public class SubjectController {
     @Autowired
@@ -20,21 +20,21 @@ public class SubjectController {
 
     @GetMapping("")
     public ResponseEntity<?> listSubject() {
-        List<Subject> subjects = subjectService.findAll();
+        List<Subject> subjects = (List<Subject>) subjectService.findAll();
         if (subjects.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(subjects, HttpStatus.OK);
     }
-    @PostMapping("")
+    @PostMapping("/create")
     public ResponseEntity<?> createSubject(@RequestBody Subject subject) {
-        if (subject.getName().trim().isEmpty()) {
-            return new ResponseEntity<>(new ResponseMessage("The name is required!"), HttpStatus.OK);
+        if (subjectService.existsByName(subject.getName())) {
+            return new ResponseEntity<>(new ResponseMessage("yes"), HttpStatus.OK);
         }
         subjectService.save(subject);
-        return new ResponseEntity<>(new ResponseMessage("Create subject success!"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Create success!"), HttpStatus.OK);
     }
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<?> updateSubject(@PathVariable Long id, @RequestBody Subject subject) {
         Optional<Subject> subject1 = subjectService.findById(id);
 
@@ -49,7 +49,7 @@ public class SubjectController {
         return new ResponseEntity<>(new ResponseMessage("Update success!"), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("detail/{id}")
     public ResponseEntity<?> detailSubject(@PathVariable Long id) {
         Optional<Subject> subject2 = subjectService.findById(id);
 
@@ -58,14 +58,14 @@ public class SubjectController {
         }
         return new ResponseEntity<>(subject2, HttpStatus.OK);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<?> deleteSubject(@PathVariable Long id){
         Optional<Subject> subject = subjectService.findById(id);
 
         if (!subject.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        subjectService.deleteById(id);
+        subjectService.remove(id);
         return new ResponseEntity<>(new ResponseMessage("Delete success!"), HttpStatus.OK);
     }
 }

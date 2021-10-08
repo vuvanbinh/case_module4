@@ -6,9 +6,6 @@ import com.codegym.demo.service.IService;
 import java.util.List;
 import java.util.Optional;
 
-public interface ISubjectService {
-    Optional<Subject> findById(Long id);
-    List<Subject> findAll();
-    Subject save(Subject subject);
-    void deleteById(Long id);
+public interface ISubjectService extends IService<Subject> {
+    Boolean existsByName(String name);
 }

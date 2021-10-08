@@ -8,6 +8,7 @@ import java.util.Collection;
 @Data
 public class JwtResponse {
     String token;
+    private Long id;
     private String type = "Bearer";
     private String fullName;
     private String avatar;
@@ -17,15 +18,9 @@ public class JwtResponse {
     public JwtResponse() {
     }
 
-//    public JwtResponse(String token, String type, String name, Collection<? extends GrantedAuthority> roles) {
-//        this.token = token;
-//        this.type = type;
-//        this.name = name;
-//        this.roles = roles;
-//    }
-
-    public JwtResponse(String token, String fullName, String avatar, Collection<? extends GrantedAuthority> authorities) {
+    public JwtResponse(String token,Long id, String fullName, String avatar, Collection<? extends GrantedAuthority> authorities) {
         this.token = token;
+        this.id = id;
         this.fullName = fullName;
         this.avatar = avatar;
         this.roles = authorities;

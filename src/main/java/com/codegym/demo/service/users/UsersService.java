@@ -2,6 +2,7 @@ package com.codegym.demo.service.users;
 
 import com.codegym.demo.model.Classes;
 import com.codegym.demo.model.Role;
+import com.codegym.demo.model.RoleName;
 import com.codegym.demo.model.Users;
 import com.codegym.demo.repository.IClassesRepository;
 import com.codegym.demo.repository.IUsersRepository;
@@ -32,32 +33,6 @@ public class UsersService implements IUsersService{
         return usersRepository.findByEmail(email);
     }
 
-//    @Override
-//    public Iterable<Users> findAllStudentByClassId(Long id) {
-//        Classes c = classesRepository.getById(id);
-//        return usersRepository.findAllByClasses(c);
-//    }
-
-    @Override
-    public Iterable<Users> findAllStudentByClassId(Long id) {
-        return usersRepository.findAllByClassId(id);
-    }
-
-
-//    @Override
-    public Iterable<Users> findAllMinistryByClassId(Long id) {
-        return findAllMinistryByClassId(id);
-    }
-
-
-//    @Override
-//    public Iterable<Users> findAllByAClass_Id(Long id) {
-//        Classes classes = classesRepository.getById(id);
-//        return usersRepository.findAllByAClass(classes);
-//    }
-
-
-
 
     @Override
     public Iterable<Users> findAll() {
@@ -65,9 +40,44 @@ public class UsersService implements IUsersService{
     }
 
     @Override
+    public List<Users> finAllByRoleName(String roleName){
+        List<Users> users = new ArrayList<>();
+        List<Users> usersList = (List<Users>)findAll();
+        for (Users u: usersList
+             ) {
+            u.getRoles().forEach(role -> {
+                if (role.getName().name().equals(roleName)){
+                    users.add(u);
+                }
+            });
+        }
+        return users;
+    }
+
+
+    public List<Users> finAllByClassesId(Long id){
+        List<Users> users = new ArrayList<>();
+        List<Users> usersList = finAllByRoleName("STUDENT");
+        for (Users u: usersList
+             ) {
+            if (u.getClasses().getId()==id){
+                users.add(u);
+            }
+        }
+        return users;
+    }
+
+    @Override
+    public Iterable<Users> findAllByStatus(String status) {
+        return usersRepository.findAllByStatus(status);
+    }
+
+
+    @Override
     public Optional<Users> findById(Long id) {
         return usersRepository.findById(id);
     }
+
 
     @Override
     public void save(Users users) {
@@ -78,32 +88,5 @@ public class UsersService implements IUsersService{
     public void remove(Long id) {
         usersRepository.deleteById(id);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //    @Override
-//    public Boolean checkLogin(String email, String password) {
-//        List<Users> usersList = (List<Users>) findAll();
-//        for (Users u: usersList
-//        ) {
-//            if (u.getEmail().equals(email) && u.getPassword().equals(password)){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
 }

@@ -18,9 +18,5 @@ public class Classes {
     @OneToMany
     @JsonManagedReference
     List<Users> users;
-//    @OneToMany
-//    @JsonManagedReference
-//    List<Users> trainerList;
-
 
 }
