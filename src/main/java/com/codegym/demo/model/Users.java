@@ -20,6 +20,7 @@ public class Users {
     private String email;
     private String password;
     private int phoneNumber;
+    private String address;
     private Date dob;
     private String status;
     private String avatar;
@@ -32,9 +33,9 @@ public class Users {
     @JoinColumn(name = "classes_id")
     private Classes aClass;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "tuitionFee_id")
-    private TuitionFee tuitionFee;
+//    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    @JoinColumn(name = "tuitionFee_id")
+//    private TuitionFee tuitionFee;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
