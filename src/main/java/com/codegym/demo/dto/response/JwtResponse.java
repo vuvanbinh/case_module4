@@ -13,4 +13,14 @@ public class JwtResponse {
     private String avatar;
     private Collection<? extends GrantedAuthority> roles;
 
+    public JwtResponse(String token, String fullName, String avatar, Collection<? extends GrantedAuthority> authorities) {
+    }
+
+    public JwtResponse(String token, String type, String fullName, String avatar, Collection<? extends GrantedAuthority> roles) {
+        this.token = token;
+        this.type = type;
+        this.fullName = fullName;
+        this.avatar = avatar;
+        this.roles = roles;
+    }
 }
