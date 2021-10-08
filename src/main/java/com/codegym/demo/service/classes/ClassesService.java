@@ -1,12 +1,6 @@
 package com.codegym.demo.service.classes;
 
 import com.codegym.demo.model.Classes;
-<<<<<<< HEAD
-
-import java.util.Optional;
-
-public class ClassesService implements IClassesService {
-=======
 import com.codegym.demo.repository.IClassesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +14,6 @@ public class ClassesService implements IClassesService{
     @Autowired
     private IClassesRepository classesRepository;
 
->>>>>>> e36ecd064823506f068b24dc5072379df6eacaa4
     @Override
     public Iterable<Classes> findAll() {
         return classesRepository.findAll() ;
@@ -42,8 +35,6 @@ public class ClassesService implements IClassesService{
         classesRepository.deleteById(id);
 
     }
-<<<<<<< HEAD
-=======
 
     @Override
 
@@ -55,5 +46,4 @@ public class ClassesService implements IClassesService{
     public boolean existsByName(String name) {
         return classesRepository.findAllByName(name);
     }
->>>>>>> e36ecd064823506f068b24dc5072379df6eacaa4
 }

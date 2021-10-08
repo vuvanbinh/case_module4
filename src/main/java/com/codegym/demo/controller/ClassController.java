@@ -24,14 +24,7 @@ public class ClassController {
         return new ResponseEntity<>(classesService.findAll(), HttpStatus.OK);
     }
 
-//    @PostMapping("/create_class")
-//    public ResponseEntity<?> createClass(@RequestBody Classes classes){
-//        if(classesService.existsByName(classes.getName())) {
-//            return new ResponseEntity<>(new ResponseMessage("no_Class"),HttpStatus.OK);
-//        }
-//        classesService.save(classes);
-//        return new ResponseEntity<>(new ResponseMessage("create_ class success!"), HttpStatus.OK);
-//    }
+
 
     @PostMapping("/create_class")
     public ResponseEntity<?> createClass(@RequestBody Classes classes) {
