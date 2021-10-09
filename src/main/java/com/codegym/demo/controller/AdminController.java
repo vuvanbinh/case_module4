@@ -122,11 +122,13 @@ public class AdminController {
         return new ResponseEntity<>(usersService.finAllByClassesId(id),HttpStatus.OK);
     }
 
+    //Chi tiết của một học sinh
     @GetMapping("/detail/{id}")
     public ResponseEntity<Optional<Users>>detailUser(@PathVariable("id") Optional<Users> users){
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
+    //Lấy ra danh sách học sinh theo status
     @GetMapping("/findAllStudentByStatus/{status}")
     public ResponseEntity<Iterable<Users>> findAllStudentByStatus(@PathVariable String status){
         return new ResponseEntity<>(usersService.findAllByStatus(status),HttpStatus.OK);
