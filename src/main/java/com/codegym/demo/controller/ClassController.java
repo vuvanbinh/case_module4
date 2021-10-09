@@ -13,20 +13,20 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/classes")
 @CrossOrigin(origins = "*")
 public class ClassController {
     @Autowired
     private IClassesService classesService;
 
-    @GetMapping("/class")
+    @GetMapping("/")
     public ResponseEntity<?> showList(){
         return new ResponseEntity<>(classesService.findAll(), HttpStatus.OK);
     }
 
 
 
-    @PostMapping("/create_class")
+    @PostMapping("/create")
     public ResponseEntity<?> createClass(@RequestBody Classes classes) {
         if (classes.getName().trim().isEmpty()) {
             return new ResponseEntity<>(new ResponseMessage("The name is required!"), HttpStatus.OK);
@@ -36,7 +36,7 @@ public class ClassController {
     }
 
 
-    @DeleteMapping("/delete_class/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteClass(@PathVariable Long id){
         Optional<Classes> classes = classesService.findById(id);
 
@@ -47,7 +47,7 @@ public class ClassController {
         return new ResponseEntity<>(new ResponseMessage("Delete success!"), HttpStatus.OK);
     }
 
-    @PutMapping("/update_class/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> updateClass(@PathVariable Long id, @RequestBody Classes classes){
         Optional<Classes> classes1 = classesService.findById(id);
         if(!classes1.isPresent()){
