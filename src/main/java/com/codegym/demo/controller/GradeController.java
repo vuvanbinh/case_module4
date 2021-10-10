@@ -4,6 +4,7 @@ package com.codegym.demo.controller;
 import com.codegym.demo.dto.response.ResponseMessage;
 import com.codegym.demo.model.Grade;
 //import com.codegym.demo.repository.IGradeRepository;
+import com.codegym.demo.model.Users;
 import com.codegym.demo.service.grade.IGradeService;
 import com.codegym.demo.service.subject.ISubjectService;
 import com.codegym.demo.service.users.IUsersService;
@@ -64,6 +65,11 @@ public class GradeController {
         grade1.get().setPractice(grade.getPractice());
         gradeService.save(grade1.get());
         return new ResponseEntity<>(new ResponseMessage("update_success!"), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllByUsersId/{id}")
+    public ResponseEntity<Iterable<Grade>> findAllByUsersId(@PathVariable("id") Users users ){
+        return new ResponseEntity<>(gradeService.findAllByUsers(users),HttpStatus.OK);
     }
 
 }

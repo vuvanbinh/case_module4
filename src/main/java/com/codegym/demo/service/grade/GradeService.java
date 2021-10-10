@@ -1,6 +1,8 @@
 package com.codegym.demo.service.grade;
 
 import com.codegym.demo.model.Grade;
+import com.codegym.demo.model.TuitionFee;
+import com.codegym.demo.model.Users;
 import com.codegym.demo.repository.IGrandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +33,10 @@ public class GradeService implements IGradeService {
     @Override
     public void remove(Long id) {
         grandeRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Grade> findAllByUsers(Users users) {
+        return grandeRepository.findAllByUsers(users);
     }
 }

@@ -1,6 +1,7 @@
 package com.codegym.demo.service.tuitionFee;
 
 import com.codegym.demo.model.TuitionFee;
+import com.codegym.demo.model.Users;
 import com.codegym.demo.repository.ITuitionFeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,10 @@ public class TuitionFeeService implements ITuitionFeeService{
     @Override
     public void remove(Long id) {
         tuitionFeeRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<TuitionFee> findAllByUsers(Users users) {
+        return tuitionFeeRepository.findAllByUsers(users);
     }
 }

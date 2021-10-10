@@ -18,7 +18,7 @@ public class TuitionFee {
     private Long id;
     private String dotDog;
     private Date dayDog;
-    private double money;
+    private int money;
     private String status;
     @Transient
     private Long usersId;
