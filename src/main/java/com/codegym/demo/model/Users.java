@@ -9,6 +9,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,19 +31,13 @@ public class Users {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinColumn(name = "classes_id")
-    @JsonBackReference
-    private Classes classes;
-
-//    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-//    @JoinColumn(name = "tuitionFee_id")
-//    private TuitionFee tuitionFee;
-
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinColumn(name = "diary_id")
-    private Diary diary;
+    @JoinTable(name = "users_classes",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "classes_id"))
+//    @JsonBackReference
+    @JsonIgnore
+    private List<Classes> classes;
 
 }

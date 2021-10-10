@@ -1,8 +1,12 @@
 package com.codegym.demo.model;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tuitionFees")
@@ -13,9 +17,12 @@ public class TuitionFee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dotDog;
+    private Date dayDog;
     private double money;
     private String status;
-    @OneToOne
+    @Transient
+    private Long usersId;
+    @ManyToOne
     private Users users;
 
 }

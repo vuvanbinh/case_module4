@@ -39,6 +39,7 @@ public class UsersService implements IUsersService{
        return usersRepository.findAll();
     }
 
+
     @Override
     public List<Users> finAllByRoleName(String roleName){
         List<Users> users = new ArrayList<>();
@@ -53,14 +54,29 @@ public class UsersService implements IUsersService{
         }
         return users;
     }
-
-
-    public List<Users> finAllByClassesId(Long id){
+    @Override
+    public List<Users> finAllByClassesId(Long id,String roleName){
         List<Users> users = new ArrayList<>();
-        List<Users> usersList = finAllByRoleName("STUDENT");
+        List<Users> usersList = finAllByRoleName(roleName);
         for (Users u: usersList
-             ) {
-            if (u.getClasses().getId()==id){
+        ) {
+            u.getClasses().forEach(classes -> {
+                if (classes.getId()==id){
+                    users.add(u);
+                }
+            });
+        }
+        return users;
+    }
+
+
+    @Override
+    public List<Users> findAllByClassIdAndStatus(Long id, String roleName, String status) {
+        List<Users> users = new ArrayList<>();
+        List<Users> usersList = finAllByClassesId(id,roleName);
+        for (Users u: usersList
+        ) {
+            if (u.getStatus().equals(status)){
                 users.add(u);
             }
         }

@@ -1,5 +1,6 @@
 package com.codegym.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -15,8 +16,9 @@ public class Classes {
     private Long id;
     private String name;
 
-    @OneToMany
-    @JsonManagedReference
+    @ManyToMany(mappedBy = "classes")
+//    @JsonManagedReference
+//            @JsonIgnore
     List<Users> users;
 
 }

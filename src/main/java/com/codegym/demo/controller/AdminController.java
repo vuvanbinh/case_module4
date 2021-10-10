@@ -16,6 +16,7 @@ import com.codegym.demo.service.users.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,14 +25,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
-//git
-//git
-//git
 
 @RestController
 @RequestMapping("/user")
@@ -79,11 +74,15 @@ public class AdminController {
         users.setDob(signUpForm.getDob());
         users.setStatus(signUpForm.getStatus());
         users.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
-        Classes classes = null;
-        if (signUpForm.getClassesId() == null) {
-            users.setClasses(null);
-        } else classes = classesService.findById(signUpForm.getClassesId()).get();
+
+        List<Classes> classes = new ArrayList<>();
+        Long[] classesIds = signUpForm.getClassesIds();
+        for (int i = 0; i < classesIds.length; i++) {
+            classes.add(classesService.findById(classesIds[i]).get());
+        }
         users.setClasses(classes);
+
+
         users.setAvatar(signUpForm.getAvatar());
         Set<String> strRole = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -122,8 +121,12 @@ public class AdminController {
 
     //Lấy ra danh sách tất cả học sinh trong một lớp
      @GetMapping("/findAllStudentByClassesId/{id}")
-    public ResponseEntity<List<Users>> findAllStudentByClassesId(@PathVariable Long id){
-        return new ResponseEntity<>(usersService.finAllByClassesId(id),HttpStatus.OK);
+    public ResponseEntity<List<Users>> findAllStudentByClassesId(
+            @PathVariable Long id,@RequestParam("status") Optional<String> status ){
+        if (!status.isPresent()||status.get().equals("all")){
+            return new ResponseEntity<>(usersService.finAllByClassesId(id,"STUDENT"),HttpStatus.OK);
+
+        }else return new ResponseEntity<>(usersService.findAllByClassIdAndStatus(id,"STUDENT",status.get()),HttpStatus.OK);
     }
 
     //Chi tiết của một học sinh
@@ -132,10 +135,22 @@ public class AdminController {
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
+
+
     //Lấy ra danh sách học sinh theo status
     @GetMapping("/findAllStudentByStatus/{status}")
     public ResponseEntity<Iterable<Users>> findAllStudentByStatus(@PathVariable String status){
         return new ResponseEntity<>(usersService.findAllByStatus(status),HttpStatus.OK);
     }
+
+    @PutMapping("/updateStatus/{id}")
+    public ResponseEntity<?> updateStatus( @PathVariable("id")Users users,@RequestParam("status") Optional<String> status ){
+        users.setStatus(status.get());
+        usersService.save(users);
+        return new ResponseEntity<>(new ResponseMessage("update success!"),HttpStatus.OK);
+    }
+
+
+
 
 }

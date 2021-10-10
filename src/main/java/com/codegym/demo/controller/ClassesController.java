@@ -57,9 +57,11 @@ public class ClassesController {
         classesService.save(classes1.get());
         return new ResponseEntity<>(new ResponseMessage("update_success!"), HttpStatus.OK);
     }
+
     @GetMapping("/findAllByUser/{id}")
-    public ResponseEntity<?> findAllByUser(@PathVariable("id") Optional<Users> users){
+    public ResponseEntity<Iterable<Classes>> findAllByUser(@PathVariable("id") Optional<Users> users){
         return new ResponseEntity<>(classesService.findAllByUsers(users.get()),HttpStatus.OK);
     }
+
 
 }

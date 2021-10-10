@@ -14,11 +14,14 @@ public class Grade {
     private String exam;
     private int theory;
     private int practice;
+    private double average;
+    @Transient
+    private Long subject_id;
+    @Transient
+    private Long users_id;
     @ManyToOne
-    @JoinColumn(name = "subject_id")
     private Subject subject;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
+    private Users users;
 
 }

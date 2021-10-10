@@ -14,10 +14,17 @@ public class Diary {
     private Long id;
     private String content;
     private Date date;
-    @ManyToOne
-    private Users coachName;
+    private String coachName;
+
+    @Transient
+    private Long classesId;
+    @Transient
+    private Long usersId;
+
     @ManyToOne
     private Classes classes;
+    @ManyToOne
+    private Users users;
 
 
 }
