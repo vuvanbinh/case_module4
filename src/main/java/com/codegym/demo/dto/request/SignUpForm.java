@@ -17,7 +17,7 @@ public class SignUpForm {
     private Date dob;
     private String status;
     private String avatar;
-    Set<String> roles;
-    private Classes classes;
+    private Set<String> roles;
+    private Long[] classesIds;
     private TuitionFee tuitionFee;
 }
