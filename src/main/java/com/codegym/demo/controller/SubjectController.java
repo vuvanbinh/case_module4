@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/sub")
+@RequestMapping("/subject")
 @CrossOrigin(origins = "*")
 public class SubjectController {
     @Autowired
@@ -21,7 +21,7 @@ public class SubjectController {
     @GetMapping("")
     public ResponseEntity<?> listSubject() {
         List<Subject> subjects = subjectService.findAll();
-        if (subjects.isEmpty()){
+        if (subjects.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(subjects, HttpStatus.OK);
