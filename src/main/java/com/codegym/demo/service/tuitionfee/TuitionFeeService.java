@@ -1,4 +1,4 @@
-package com.codegym.demo.service.tuitionfee;
+package com.codegym.demo.service.tuitionFee;
 
 import com.codegym.demo.model.TuitionFee;
 import com.codegym.demo.repository.ITuitionFeeRepository;
@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class TuitionFeeService implements ITuitionFeeService {
+public class TuitionFeeService implements ITuitionFeeService{
+
     @Autowired
     ITuitionFeeRepository tuitionFeeRepository;
 
@@ -23,12 +24,12 @@ public class TuitionFeeService implements ITuitionFeeService {
     }
 
     @Override
-    public void remove(Long id) {
-        tuitionFeeRepository.deleteById(id);
+    public void save(TuitionFee tuitionFee) {
+        tuitionFeeRepository.save(tuitionFee);
     }
 
     @Override
-    public void save(TuitionFee tuitionfee) {
-        tuitionFeeRepository.save(tuitionfee);
+    public void remove(Long id) {
+        tuitionFeeRepository.deleteById(id);
     }
 }
