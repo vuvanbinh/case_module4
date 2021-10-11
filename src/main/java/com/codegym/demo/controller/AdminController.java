@@ -143,6 +143,7 @@ public class AdminController {
         return new ResponseEntity<>(usersService.findAllByStatus(status),HttpStatus.OK);
     }
 
+
     @PutMapping("/updateStatus/{id}")
     public ResponseEntity<?> updateStatus( @PathVariable("id")Users users,@RequestParam("status") Optional<String> status ){
         users.setStatus(status.get());
