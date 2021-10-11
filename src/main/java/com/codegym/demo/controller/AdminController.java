@@ -151,7 +151,10 @@ public class AdminController {
         return new ResponseEntity<>(new ResponseMessage("update success!"),HttpStatus.OK);
     }
 
-
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<Optional<Users>> findById(@PathVariable("id")Optional<Users> users){
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
 
 
 }
